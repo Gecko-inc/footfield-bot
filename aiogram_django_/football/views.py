@@ -7,9 +7,7 @@ from .serializers import FootballFieldSerializer, ConfigSerializer, ImageSeriali
 
 class GetConfigView(APIView):
     def get(self, *args, **kwargs):
-        objects = Config.objects.all()
-        serialized_data = ConfigSerializer(objects, many=True)
-        return Response(serialized_data.data)
+        return Response(Config.get_cfg())
 
 
 class FootballFieldView(APIView):

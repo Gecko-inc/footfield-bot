@@ -1,11 +1,10 @@
 import aiohttp
 
-from bot_app.local_settings import URL
+
+URL = "http://127.0.0.1:8000/api/"
 
 
-# I hope you understand what's going on here.
-
-async def get_config() -> list:
+async def get_config() -> dict:
     async with aiohttp.ClientSession() as session:
         async with session.get(f"{URL}get_config/") as response:
             return await response.json()

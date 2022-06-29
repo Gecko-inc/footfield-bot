@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from bot_app.bot import dp
+from .bot import dp
 from .data_fetcher import get_all_fields_api, get_config, get_images, filter_area, filter_size
 from .functions import create_message
 from .keyboards import main_keyboard, filter_keyboard
@@ -13,13 +13,7 @@ from .states import FilterStates
 @dp.message_handler(commands="start")
 async def get_hello_text(message: types.Message):
     data = await get_config()
-    hello_text = ""
-    for i in data:
-        if i.get("title") == "приветствие":
-            hello_text: str = i.get("value")
-        else:
-            await message.answer("Я бот с футбольными полями", reply_markup=main_keyboard)
-            return None
+    hello_text: str = data.get("hello_text", "Hi!")
     await message.answer(text=f"{hello_text}", reply_markup=main_keyboard)
 
 
